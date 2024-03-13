@@ -1,0 +1,36 @@
+{
+  "version": "0.2.1",
+  "configurations": [
+    {
+      "type": "dll",
+      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
+      "args": [
+        "--editor",
+        "--windowed",
+        "--delta-smoothing enable",
+        "--resolution 1920x1080",
+        "--debug",
+        "--verbose",
+        "--path",
+        "${workspaceRoot}/project"
+      ],
+      "project": "CMakeLists.txt",
+      "name": "gdextension (editor)",
+      "visualizerFile": "${workspaceRoot}/extern/godot-engine/platform/windows/godot.natvis"
+    },
+    {
+      "type": "dll",
+      "isDefaultConfiguration": true,
+      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
+      "args": [
+        "--debug",
+        "--verbose",
+        "--path",
+        "${workspaceRoot}/project"
+      ],
+      "project": "CMakeLists.txt",
+      "name": "gdextension (project)",
+      "visualizerFile": "${workspaceRoot}/extern/godot-engine/platform/windows/godot.natvis"
+    }
+  ]
+}
