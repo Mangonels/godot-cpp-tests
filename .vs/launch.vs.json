@@ -3,7 +3,7 @@
   "configurations": [
     {
       "type": "dll",
-      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
+      "exe": "C:/Users/dylan/Desktop/Godot/Godot_v4.2.1-stable_win64.exe",
       "args": [
         "--editor",
         "--windowed",
@@ -21,7 +21,7 @@
     {
       "type": "dll",
       "isDefaultConfiguration": true,
-      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
+      "exe": "C:/Users/dylan/Desktop/Godot/Godot_v4.2.1-stable_win64.exe",
       "args": [
         "--debug",
         "--verbose",

@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://c1v2l4u6agicb"]
+
+[node name="Main" type="Main"]
+process_mode = 4

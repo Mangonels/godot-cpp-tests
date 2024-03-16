@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.20)
 
-set(GDEXTENSION_LIB_NAME morphclient)
+set(GDEXTENSION_LIB_NAME godot-cpp-tests)
 set(GDEXTENSION_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/project/bin")
 
 option(
