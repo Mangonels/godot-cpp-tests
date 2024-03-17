@@ -1,8 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1710618286
-godot-cpp-tests.gdextension::GDExtension::-1::1710108945::0::1::::<><>::
+::res://::1710699248
+godot-cpp-tests.gdextension::GDExtension::-1::1710626114::0::1::::<><>::
 icon.svg::CompressedTexture2D::912342703441497915::1710102834::1710102838::1::::<><>::
-::res://bin/::1710618283
-::res://file-access/::1710618264
+::res://bin/::1710699245
+::res://file-access/::1710698524
 Hello.txt::TextFile::-1::1710449360::0::1::::<><>::
-test-file-access.tscn::PackedScene::6642763792829933557::1710618264::0::1::::<><>::
+test-file-access.tscn::PackedScene::6642763792829933557::1710698524::0::1::::<><>::
