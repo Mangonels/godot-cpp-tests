@@ -2,6 +2,7 @@
 
 #include <godot_cpp/variant/utility_functions.hpp>
 #include <godot_cpp/classes/file_access.hpp>
+#include <godot_cpp/classes/resource_loader.hpp>
 
 #include "util/engine.hpp"
 #include <optional>
@@ -20,25 +21,26 @@ namespace ns {
             {
                 RUNTIME_OR_RELEASE_GUARD
 
-				const auto file_to_open = "res://file-access/Hello.txt";
+                const auto file_to_open_res = "res://file-access/Scene.tscn";
 
 				//---
                 //(A) FileAccess file_exists static method call
                 //---
 
-                if (godot::FileAccess::file_exists(file_to_open))
-                    godot::UtilityFunctions::print("(A) godot::FileAccess returned existing file.");
+                if (godot::FileAccess::file_exists(file_to_open_res))
+                    godot::UtilityFunctions::print("C++ (A) godot::FileAccess returned existing file.");
                 else
-                    godot::UtilityFunctions::print("(A) godot::FileAccess returned NON existing file.");
+                    godot::UtilityFunctions::print("C++ (A) godot::FileAccess returned NON existing file.");
 
 				//---
-				//(B) FileAccess open static method call
+                //(B) ResourceLoader singleton exists method call
                 //---
-
-                if (godot::FileAccess::open(file_to_open, godot::FileAccess::READ).is_null())
-                    godot::UtilityFunctions::print("(B) godot::FileAccess open static method call is null.");
-				else
-                    godot::UtilityFunctions::print("(B) godot::FileAccess open static method call returned FileAccess successfully.");
+                if (godot::ResourceLoader::get_singleton()->exists(file_to_open_res))
+                    godot::UtilityFunctions::print(
+                        "C++ (B) ResourceLoader::get_singleton()->exists returned existing file.");
+                else
+                    godot::UtilityFunctions::print(
+                        "C++ (B) ResourceLoader::get_singleton()->exists returned NON existing file.");
             }
             break;
         }
