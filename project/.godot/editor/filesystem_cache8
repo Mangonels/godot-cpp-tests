@@ -1,9 +1,11 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1710872740
-export_presets.cfg::TextFile::-1::1710807753::0::1::::<><>::
+::res://::1710888540
+export_presets.cfg::TextFile::-1::1710881536::0::1::::<><>::
 godot-cpp-tests.gdextension::GDExtension::-1::1710626114::0::1::::<><>::
 icon.svg::CompressedTexture2D::912342703441497915::1710102834::1710102838::1::::<><>::
-::res://bin/::1710872555
-::res://file-access/::1710710109
+::res://bin/::1710888534
+::res://file-access/::1710882839
 Hello.txt::TextFile::-1::1710449360::0::1::::<><>::
-test-file-access.tscn::PackedScene::6642763792829933557::1710710109::0::1::::<><>::
+Scene.tscn::PackedScene::5711984612290450521::1710882839::0::1::::<><>::
+test-file-access.gd::GDScript::-1::1710876903::0::1::::<>Main<>::
+test-file-access.tscn::PackedScene::6642763792829933557::1710882839::0::1::::<><>::res://file-access/test-file-access.gd
