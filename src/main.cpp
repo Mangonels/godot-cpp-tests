@@ -23,7 +23,7 @@ namespace ns {
 
                 const auto file_to_open_res = "res://file-access/Scene.tscn";
 
-				//---
+                //---
                 //(A) FileAccess file_exists static method call
                 //---
 
@@ -32,7 +32,7 @@ namespace ns {
                 else
                     godot::UtilityFunctions::print("C++ (A) godot::FileAccess returned NON existing file.");
 
-				//---
+                //---
                 //(B) ResourceLoader singleton exists method call
                 //---
                 if (godot::ResourceLoader::get_singleton()->exists(file_to_open_res))
