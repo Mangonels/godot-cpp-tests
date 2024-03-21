@@ -82,11 +82,11 @@ target_compile_options(${PROJECT_NAME} PUBLIC
         /utf-8
         /Zc:preprocessor
         $<$<CONFIG:Debug>:
-            /MDd
+            /MTd #Static linking of C++ runtime libraries (use MD for system dynamic)
         >
         $<$<CONFIG:Release>:
-            /MD
-            /O2
+            /MT #Static linking of C++ runtime libraries (use MD for system dynamic)
+            /O2 #Optimizes code
         >
     >
     $<$<NOT:${compiler_is_msvc}>:
