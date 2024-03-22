@@ -6,5 +6,5 @@ reloadable = true
 
 [libraries]
 
-windows.debug.x86_64 = "user://bin/godot-cpp-tests.windows.64.debug.dll"
-windows.release.x86_64 = "user://bin/godot-cpp-tests.windows.64.release.dll"
+windows.debug.x86_64 = "res://bin/godot-cpp-tests.windows.64.debug.dll"
+windows.release.x86_64 = "res://bin/godot-cpp-tests.windows.64.release.dll"
