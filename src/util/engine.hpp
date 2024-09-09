@@ -38,7 +38,7 @@ SOFTWARE."
 #include <godot_cpp/classes/scene_tree.hpp>
 #include <godot_cpp/classes/window.hpp>
 
-namespace wbc::inline utils {
+namespace ns::inline utils {
     namespace gdeng {
         /* ENGINE */
 

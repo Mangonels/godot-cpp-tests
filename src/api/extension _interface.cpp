@@ -4,6 +4,7 @@
 
 #include "extension_interface.hpp"
 #include "main.hpp"
+#include "calling_class.hpp"
 
 namespace ns
 {
@@ -13,6 +14,8 @@ namespace ns
             return;
 
         godot::ClassDB::register_runtime_class<Main>();
+        godot::ClassDB::register_runtime_class<CallingClass>();
+
     }
 
     void uninitialize_extension_module(godot::ModuleInitializationLevel init_level)

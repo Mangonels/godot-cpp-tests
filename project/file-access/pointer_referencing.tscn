@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://da8prrnb11l4a"]
+
+[node name="Main" type="Main"]
+
+[node name="CallingClass" type="CallingClass" parent="."]
