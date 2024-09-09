@@ -12,7 +12,7 @@ namespace ns
         if (init_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE)
             return;
 
-        godot::ClassDB::register_class<Main>();
+        godot::ClassDB::register_runtime_class<Main>();
     }
 
     void uninitialize_extension_module(godot::ModuleInitializationLevel init_level)
