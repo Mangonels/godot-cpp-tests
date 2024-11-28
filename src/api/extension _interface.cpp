@@ -2,12 +2,11 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
+#include "calling_class.hpp"
 #include "extension_interface.hpp"
 #include "main.hpp"
-#include "calling_class.hpp"
 
-namespace ns
-{
+namespace ns {
     void initialize_extension_module(godot::ModuleInitializationLevel init_level)
     {
         if (init_level != godot::MODULE_INITIALIZATION_LEVEL_SCENE)
@@ -15,7 +14,6 @@ namespace ns
 
         godot::ClassDB::register_runtime_class<Main>();
         godot::ClassDB::register_runtime_class<CallingClass>();
-
     }
 
     void uninitialize_extension_module(godot::ModuleInitializationLevel init_level)

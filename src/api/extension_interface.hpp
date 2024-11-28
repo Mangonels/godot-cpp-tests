@@ -2,8 +2,7 @@
 
 #include <godot_cpp/core/class_db.hpp>
 
-namespace godot
-{
+namespace godot {
     void initialize_extension_module(ModuleInitializationLevel init_level);
     void uninitialize_extension_module(ModuleInitializationLevel init_level);
 

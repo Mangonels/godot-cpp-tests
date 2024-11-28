@@ -2,13 +2,11 @@
 
 #include <godot_cpp/classes/node.hpp>
 
-namespace godot
-{
+namespace godot {
     class Node3D;
 }
 
-namespace ns
-{
+namespace ns {
     class Main : public godot::Node
     {
         GDCLASS(Main, godot::Node);
@@ -17,7 +15,7 @@ namespace ns
         Main();
         ~Main() = default;
 
-        godot::Node3D* get_node_3d_ref() const;
+        godot::Node3D* get_node_3d_ptr() const;
 
     protected:
         void _notification(int p_notification);

@@ -1,20 +1,64 @@
+﻿# License details have been added to this "substantial portion of
+# the original software", at: https://github.com/vorlac/godot-roguelite
+# as established by it's license as of 25-Mar-24:
+
+# "MIT License
+
+# Copyright (c) 2023 sal
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE."
+
+# BREEF SUMMARY:
+
+# This is the main CMake script which (summed up) configures a CMake build project on how to build our .dll
+# The gdextension .dll build can be run from Visual Studio Community (it's CMake magic!) as long as you have 
+# installed the CMake tools add-on, and the project is in the same directory as CMakeLists.txt
+
+# This script can also easily handle adding 3rd party libraries to our gdextension project.
+# This version of the script is highly commented and based on orlac's godot-roguelite project, an official 
+# explanation on how it's intended to function is here:
+
+# https://github.com/vorlac/godot-roguelite/wiki#cmake-configuration
+
 # =======================================================================
 # Main cmake project settings area
 # =======================================================================
 
 cmake_minimum_required(VERSION 3.20)
 
+# Name for our library:
 set(GDEXTENSION_LIB_NAME godot-cpp-tests)
+# Directory for placing the built .dll (The project .gdextension file should likely point in here):
 set(GDEXTENSION_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/project/bin")
+# Tip: "set" arguments are basically defining variables in CMake
 
 option(
   AUTOFORMAT_SRC_ON_CONFIGURE
+    "If enabled, clang-format will be used to format all sources in src/ during configuration"
       ON
 )
+# Tip: "option" arguments are basically also CMake variables, but in a easy user toggleable format.
 
 option(
   USE_CCACHE_FOR_GDEXT_BUILD
       ON
+    "If enabled, ccache will be used to when building the project lib"
 )
 
 set(CMAKE_CXX_STANDARD 23)
@@ -23,12 +67,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_MESSAGE_LOG_LEVEL STATUS)
 
+# Assign CMAKE_MODULE_PATH which will indicate future include statements where the .cmake files to be included may be located
 list(APPEND CMAKE_MODULE_PATH
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/"
     "${CMAKE_CURRENT_SOURCE_DIR}/extern/godot-cpp/cmake/"
 )
+# Tip: "list" arguments allow you to group multiple variables under a single identifier.
 
+# =======================================================================
+# Configure vcpkg submodule and define library.
+#   vcpkg:
+#     is a submodule (repository within the main one, defined in 
+#     .gitmodules) It is a program used by CMake further on in this 
+#     script to easily add 3rd party libraries to our own main .dll
+#     (it priorizes static linking!)
+# =======================================================================
 include(vcpkg-init)
+# Tip: "vcpkg-init" is actually a .cmake script located in the cmake/ directory.
+#      Include file names in the cmake/ directory don't require a full path or file extension to be specified thanks to the
+#      previous CMAKE_MODULE_PATH list definition
 
 project("${GDEXTENSION_LIB_NAME}"
   LANGUAGES
@@ -36,8 +93,11 @@ project("${GDEXTENSION_LIB_NAME}"
   VERSION
     0.1.0
 )
+# Tip: the "project" specifications tell CMake valuable project info for compilation: 
+#      project name (same as lib name), languages and version.
 
-include(vcpkg-install-deps)
+include(vcpkg-install-deps) #Includes cmake/vcpkg-install-deps.cmake and runs it here
+# Tip: the "vcpkg-install-deps" .cmake script just makes sure that the previously asserted vcpkg install has all of it's dependencies available
 
 # =======================================================================
 # Compiler identification
@@ -46,47 +106,70 @@ include(vcpkg-install-deps)
 set(compiler_is_clang "$<OR:$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:Clang>>")
 set(compiler_is_gnu "$<CXX_COMPILER_ID:GNU>")
 set(compiler_is_msvc "$<CXX_COMPILER_ID:MSVC>")
+# Tip: The compiler we are using is determined by configs in CMakePresets.json, which in turn are picked by the VS Community option we selected
 
 # =======================================================================
-# Configure godot-cpp submodules
+# Configure godot-engine and godot-cpp submodules and define libraries.
+#   godot-cpp:
+#     Configured as a library that will statically
+#     link to this project's gdextension dynamic link library.
+#   godot-engine:
+#     The engine submodule will be (re)built using scons if a
+#     debug build of the editor doesn't already exist.
+#     the engine sources and headers will then be used to declare
+#     a library in cmake (but will not be built). The cmake library
+#     will improve code browsing, syntax highlighting, searching,
+#     debbuging, and autocomplete/intellisense for any IDEs that
+#     gather data from cmake (i.e. VSCode and Visual Studio 2022)
 # =======================================================================
 
 include(godot-dev-configuration)
 
 # =======================================================================
-# 3rd party library setup/configuration
+# 3rd party library setup/configuration (leverages vcpkg)
 # =======================================================================
 
 find_package(fmt CONFIG REQUIRED)
+# Tip: The previous packages are in vcpkg's registry, hence why CMake's find_package method can find them.
+#      once found, they are respectively referenced by names (eg. fmt, spdlog, flecs)
 
 # =======================================================================
 # Our GDExtension dynamic library (.dll) setup/configuration
 # =======================================================================
 
+# Point to our library sources as "gdext_sources":
 file(GLOB_RECURSE gdext_sources
      CONFIGURE_DEPENDS
        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]"
        "${CMAKE_CURRENT_SOURCE_DIR}/src/*.[hc]pp"
 )
 
+# Use gdext_sources in order to build a library by PROJECT_NAME:
 add_library(${PROJECT_NAME}
     SHARED
       ${gdext_sources}
 )
+# Tip1: The "add_library()" command is used to specify a library target for this cmake project to build
+#       The SHARED keyword tells CMake to create a shared library. The gdext_sources file directories are passed to add_library() 
+#       command to specify the source files for the library.
+# Tip2: The .dll isn't built here yet, it's only being pointed at. The build will occur when running cmake --build in the same
+#       directory as this CMakeLists.txt file, or if the build command is run from visual studio.
 
+# Import compiler warnings from godot-cpp's own cmake folder:
 include(GodotCompilerWarnings)
 
+# Set compiler options for the gdextension library based on the compiler being used:
 target_compile_options(${PROJECT_NAME} PUBLIC
     $<${compiler_is_msvc}:
         /EHsc
         /utf-8
         /Zc:preprocessor
         $<$<CONFIG:Debug>:
-            /MTd #Static linking of C++ runtime libraries (use MD for system dynamic)
+            /MTd # Static linking of C++ runtime libraries (use MD for system dynamic)
         >
         $<$<CONFIG:Release>:
-            /MT #Static linking of C++ runtime libraries (use MD for system dynamic)
-            /O2 #Optimizes code
+            /MT # Static linking of C++ runtime libraries (use MD for system dynamic)
+            /O2 # Compiler will optimize code for speed
         >
     >
     $<$<NOT:${compiler_is_msvc}>:
@@ -110,15 +193,18 @@ target_compile_options(${PROJECT_NAME} PUBLIC
     >
 )
 
+# Enable extension hot swapping:
 target_compile_definitions(${PROJECT_NAME} PUBLIC 
 	HOT_RELOAD_ENABLED
 )
 
+# Define the directories containing inclusion headers (CMake needs to know this after running add_library):
 target_include_directories(${PROJECT_NAME} PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
 if (NOT APPLE)
+    # linker options for the gdextension library
     target_link_options(${PROJECT_NAME} PRIVATE
         $<$<NOT:${compiler_is_msvc}>:
             -static-libgcc
@@ -144,18 +230,30 @@ endif()
 # Dependency linkage (linking dependencies to our .dll build)
 # =======================================================================
 
+# gdextension library dependency linkage
+# 	godot::cpp: Found by CMake thanks to godot-dev-configuration "add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/extern/godot-cpp)" statement.
+# 			  	the subdirectory addition runs godot-cpp's own CMakeLists.txt which declares "add_library(godot::cpp ALIAS ${PROJECT_NAME})"
+#   			CMake automatically exports all targets that are created in the godot-cpp CMakeLists.txt file. This means that the godot::cpp 
+#               library is accessible and linkable from here.
+#
+#				The other libraries are found thanks to their definition earlier in "find_package"
 target_link_libraries(${PROJECT_NAME}
     PUBLIC godot::cpp
     PRIVATE fmt::fmt
     PRIVATE fmt::fmt-header-only
 )
+# Tip1: PUBLIC: our .dll depends on the library. PRIVATE: the library is expendable.
+# Tip2: godot::cpp, fmt::fmt etc... each library name is declared by each of it's
+# 	    respective projects's own CMakeLists.txt, which is reached thanks to vcpkg
 
+# Define system architecture for the build:
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
 	set(system_bits 64)
 else()
     set(system_bits 32)
 endif()
 
+# Define built .dll name:
 string(TOLOWER
     "${PROJECT_NAME}.${CMAKE_SYSTEM_NAME}.${system_bits}.${CMAKE_BUILD_TYPE}"
     gde_lib_name
@@ -163,20 +261,35 @@ string(TOLOWER
 
 set_target_properties(${PROJECT_NAME}
 	PROPERTIES
-		POSITION_INDEPENDENT_CODE ON
+		# This option tells CMake to generate position-independent code (PIC). 
+		# PIC code can be loaded and executed at any address in memory. 
+		# This is necessary for libraries that will be shared between multiple processes.
         CMAKE_EXPORT_COMPILE_COMMANDS ON
+		# This option tells CMake to export the compile commands for the target. 
+		# This can be useful for debugging and profiling purposes.
         CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON
+		# This option tells CMake to enable interprocedural optimization for the target. 
+		# This can improve the performance of the target by optimizing code across multiple functions.
 		ARCHIVE_OUTPUT_DIRECTORY "${GDEXTENSION_LIB_PATH}"
+		# This option tells CMake to place the static library archive for the target in the specified directory.
 		LIBRARY_OUTPUT_DIRECTORY "${GDEXTENSION_LIB_PATH}"
+		# This option tells CMake to place the shared library for the target in the specified directory.
 		RUNTIME_OUTPUT_DIRECTORY "${GDEXTENSION_LIB_PATH}"
+		# This option tells CMake to place the runtime library for the target in the specified directory.
         CMAKE_PDB_OUTPUT_DIRECTORY "${GDEXTENSION_LIB_PATH}"
+		# This option tells CMake to place the program database (PDB) file for the target in the specified directory. 
+		# The PDB file contains debugging information for the target.
         CMAKE_COMPILE_PDB_OUTPUT_DIRECTORY "${GDEXTENSION_LIB_PATH}"
+		# This option tells CMake to place the compile-time PDB file for the target in the specified directory.
+		# The compile-time PDB file contains debugging information that can be used to debug the target while it is being built.
 		OUTPUT_NAME "${gde_lib_name}"
+		# This option tells CMake to set the output name for the target to the specified value.
 )
 
 # =======================================================================
 # Print configuration report
 # =======================================================================
 
+# Include utility script that prints a handful of useful build/configuration cmake variables:
 include(cmake-utils)
 print_project_variables()

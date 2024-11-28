@@ -1,11 +1,8 @@
-#include "main.hpp"
-
 #include <godot_cpp/classes/node3d.hpp>
 
 #include "core/assert.hpp"
+#include "main.hpp"
 #include "util/engine.hpp"
-
-
 
 namespace ns {
 
@@ -13,7 +10,7 @@ namespace ns {
     {
     }
 
-    godot::Node3D* Main::get_node_3d_ref() const
+    godot::Node3D* Main::get_node_3d_ptr() const
     {
         return m_instanced_node3d;
     }

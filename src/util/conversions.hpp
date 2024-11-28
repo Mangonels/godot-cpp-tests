@@ -40,8 +40,7 @@ SOFTWARE."
 
 #include "core/assert.hpp"
 
-namespace ns::inline utils
-{
+namespace ns::inline utils {
     /** Converts std string types to godot::String at compile time */
     template <typename TStr>
     struct GDStrConv

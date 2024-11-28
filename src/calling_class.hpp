@@ -10,8 +10,7 @@ namespace ns {
     class Main;
 }
 
-namespace ns
-{
+namespace ns {
     class CallingClass : public godot::Node
     {
         GDCLASS(CallingClass, godot::Node);
@@ -26,9 +25,10 @@ namespace ns
         static void _bind_methods()
         {
         }
+
     private:
         Main* m_parent_node = nullptr;
 
-		godot::Node3D* m_requested_node_ref = nullptr;
+        godot::Node3D** m_requested_node_ref = nullptr;
     };
 }
