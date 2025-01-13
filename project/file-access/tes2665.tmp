@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1v2l4u6agicb"]
-
-[ext_resource type="Script" path="res://file-access/test-file-access.gd" id="1_a2uyr"]
-
-[node name="Main" type="Main"]
-process_mode = 4
-script = ExtResource("1_a2uyr")
