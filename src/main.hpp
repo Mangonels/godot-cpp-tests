@@ -2,10 +2,7 @@
 #pragma once
 
 #include <godot_cpp/classes/node.hpp>
-
-namespace godot {
-    class Thread;
-}
+#include <godot_cpp/classes/thread.hpp>
 
 namespace ns {
     class Main : public godot::Node
@@ -17,7 +14,7 @@ namespace ns {
         ~Main() = default;
 
         bool run_thread_loop = false;
-        godot::Thread* test_thread;
+        godot::Ref<godot::Thread> test_thread;
 
     protected:
         void _notification(int p_notification);

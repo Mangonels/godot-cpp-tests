@@ -13,28 +13,33 @@ namespace ns {
                 set_process(true);
 
                 run_thread_loop = true;
+                test_thread = godot::Ref<godot::Thread>(memnew(godot::Thread));
 
-				test_thread = memnew(godot::Thread);
+                test_thread->start(callable_mp(this, &Main::thread_function));
 
-				static godot::Callable c = callable_mp(this, &Main::thread_function);
-                test_thread->start(c);  // Start extra thread
+                break;
             }
             case NOTIFICATION_PROCESS:
             {
                 godot::UtilityFunctions::print("Main Thread!");
+
+                break;
             }
             case NOTIFICATION_EXIT_TREE:
             {
+                godot::UtilityFunctions::print("Exit tree notification received.");
+
                 run_thread_loop = false;
-                //test_thread->wait_to_finish(); //End thread freezes game
+                test_thread->wait_to_finish();
+
+                break;
             }
-            break;
         }
     }
 
     void Main::thread_function()
     {
         while (run_thread_loop)
-            godot::UtilityFunctions::print("Extra Thread!"); //This doesn't even run
+            godot::UtilityFunctions::print("Extra Thread!");
     }
 }
