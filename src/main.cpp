@@ -38,10 +38,12 @@ namespace ns {
         is much less frequent.
 
 		It was actually possible to run a print from utility functions at this frequency,
-		but it's unconfirmed what other Godot Engine API functions may be runnable.
+		as long as we don't call .join() but it's unconfirmed what other Godot Engine API
+		functions may be runnable.
 
         There are also some limitations as to which API functionalities can be called
-        from an extra thread.
+        from an extra thread:
+        https://docs.godotengine.org/en/stable/tutorials/performance/thread_safe_apis.html#doc-thread-safe-apis
 
         - PixelRain */
 
