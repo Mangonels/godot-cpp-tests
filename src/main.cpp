@@ -14,8 +14,9 @@ namespace ns {
                 // set_process_mode(PROCESS_MODE_PAUSABLE);
 
                 godot::UtilityFunctions::print("Hello World!");
+
+                break;
             }
-            break;
         }
     }
 }
