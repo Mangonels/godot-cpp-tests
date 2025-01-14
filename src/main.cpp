@@ -21,9 +21,7 @@ namespace ns {
             case NOTIFICATION_WM_CLOSE_REQUEST:
             {
                 run_thread_loop = false;
-                // Adding the following join for the extra thread
-                // causes a crash on game start:
-                test_thread.join();
+                test_thread.join(); //<- Editor + Project crash
 				// I also tried adding it in the destructor.
             }
             break;
