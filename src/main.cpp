@@ -11,8 +11,8 @@ namespace ns {
             {
                 set_process(true);
 
-                run_thread_loop = true;
-                test_thread = std::thread(&Main::thread_function, this);
+                m_run_thread_loop = true;
+                m_test_thread = std::thread(&Main::thread_function, this);
 
 				break;
             }
@@ -24,8 +24,8 @@ namespace ns {
             }
             case NOTIFICATION_EXIT_TREE:
             {
-                run_thread_loop = false;
-                test_thread.join();
+                m_run_thread_loop = false;
+                m_test_thread.join();
 
 				break;
             }
@@ -49,7 +49,7 @@ namespace ns {
 
         - PixelRain */
 
-        while (run_thread_loop)
+        while (m_run_thread_loop)
             godot::UtilityFunctions::print("Extra Thread!"); 
     }
 }
