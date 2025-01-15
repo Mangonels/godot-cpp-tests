@@ -13,18 +13,22 @@ namespace ns {
 
                 run_thread_loop = true;
                 test_thread = std::thread(&Main::thread_function, this);
+
+				break;
             }
             case NOTIFICATION_PROCESS:
             {
                 godot::UtilityFunctions::print("Main Thread!");
+
+				break;
             }
-            case NOTIFICATION_WM_CLOSE_REQUEST:
+            case NOTIFICATION_EXIT_TREE:
             {
                 run_thread_loop = false;
-                test_thread.join(); //<- Editor + Project crash
-				// I also tried adding it in the destructor.
+                test_thread.join();
+
+				break;
             }
-            break;
         }
     }
 
