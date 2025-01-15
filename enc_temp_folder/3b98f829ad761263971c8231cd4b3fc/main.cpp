@@ -34,7 +34,7 @@ namespace ns {
 
     void Main::thread_function()
     {
-        /* NOTE: my computer runs around 1700 loop iterations from this separate thread 
+        /* NOTE: my computer runs 1702 loop iterations from this separate thread 
         between each main thread PROCESS notification, so godot's NOTIFICATION_PROCESS
         (which is the "highest frequency loop" for Godot that I know of)
         is much less frequent.
