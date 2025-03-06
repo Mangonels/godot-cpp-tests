@@ -118,7 +118,7 @@ add_library(${PROJECT_NAME}
 #       directory as this CMakeLists.txt file, or if the build command is run from visual studio.
 
 # Import compiler warnings from godot-cpp's own cmake folder:
-include(GodotCompilerWarnings)
+include(common_compiler_flags)
 
 # Set compiler options for the gdextension library based on the compiler being used:
 target_compile_options(${PROJECT_NAME} PUBLIC
@@ -127,10 +127,10 @@ target_compile_options(${PROJECT_NAME} PUBLIC
         /utf-8
         /Zc:preprocessor
         $<$<CONFIG:Debug>:
-            /MTd # Static linking of C++ runtime libraries (use MD for system dynamic)
+            /MDd # Dynamic linking of C++ runtime libraries (use MT for static)
         >
         $<$<CONFIG:Release>:
-            /MT # Static linking of C++ runtime libraries (use MD for system dynamic)
+            /MD # Dynamic linking of C++ runtime libraries (use MT for static)
             /O2 # Compiler will optimize code for speed
         >
     >
