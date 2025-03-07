@@ -4,6 +4,8 @@
 
 cmake_minimum_required(VERSION 3.20)
 
+# Select for all following targets a multi-threaded statically-linked C++ runtime library 
+# with or without debug information depending on the configuration:
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Name for our library:
@@ -128,13 +130,13 @@ target_compile_options(${PROJECT_NAME} PUBLIC
         /EHsc
         /utf-8
         /Zc:preprocessor
-        $<$<CONFIG:Debug>:
-            /MDd # Dynamic linking of C++ runtime libraries (use MT for static)
-        >
-        $<$<CONFIG:Release>:
-            /MD # Dynamic linking of C++ runtime libraries (use MT for static)
-            /O2 # Compiler will optimize code for speed
-        >
+#        $<$<CONFIG:Debug>:
+#            /MDd # Dynamic linking of C++ runtime libraries (use MT for static)
+#        >
+#        $<$<CONFIG:Release>:
+#            /MD # Dynamic linking of C++ runtime libraries (use MT for static)
+#            /O2 # Compiler will optimize code for speed
+#        >
     >
     $<$<NOT:${compiler_is_msvc}>:
         -g
