@@ -4,6 +4,8 @@
 
 cmake_minimum_required(VERSION 3.20)
 
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
 # Name for our library:
 set(GDEXTENSION_LIB_NAME godot-cpp-tests)
 # Directory for placing the built .dll (The project .gdextension file should likely point in here):
