@@ -3,6 +3,34 @@
   "configurations": [
     {
       "type": "dll",
+      "isDefaultConfiguration": true,
+      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
+      "args": [
+        "--debug",
+        "--verbose",
+        "--path",
+        "${workspaceRoot}/project"
+      ],
+      "project": "CMakeLists.txt",
+      "name": "project",
+      "visualizerFile": "${workspaceRoot}/extern/godot-engine/platform/windows/godot.natvis"
+    },
+    {
+      "type": "dll",
+      "isDefaultConfiguration": true,
+      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.console.exe",
+      "args": [
+        "--debug",
+        "--verbose",
+        "--path",
+        "${workspaceRoot}/project"
+      ],
+      "project": "CMakeLists.txt",
+      "name": "project + console",
+      "visualizerFile": "${workspaceRoot}/extern/godot-engine/platform/windows/godot.natvis"
+    },
+    {
+      "type": "dll",
       "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
       "args": [
         "--editor",
@@ -15,21 +43,7 @@
         "${workspaceRoot}/project"
       ],
       "project": "CMakeLists.txt",
-      "name": "gdextension (editor)",
-      "visualizerFile": "${workspaceRoot}/extern/godot-engine/platform/windows/godot.natvis"
-    },
-    {
-      "type": "dll",
-      "isDefaultConfiguration": true,
-      "exe": "${workspaceRoot}/extern/godot-engine/bin/godot.windows.editor.dev.x86_64.exe",
-      "args": [
-        "--debug",
-        "--verbose",
-        "--path",
-        "${workspaceRoot}/project"
-      ],
-      "project": "CMakeLists.txt",
-      "name": "gdextension (project)",
+      "name": "editor",
       "visualizerFile": "${workspaceRoot}/extern/godot-engine/platform/windows/godot.natvis"
     }
   ]
