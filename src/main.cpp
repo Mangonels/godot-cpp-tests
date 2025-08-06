@@ -14,6 +14,8 @@ namespace ns {
                 // set_physics_process(true);
                 // set_process_mode(PROCESS_MODE_PAUSABLE);
 
+                godot::DisplayServer::get_singleton()->cursor_set_shape(godot::DisplayServer::CursorShape::CURSOR_HSIZE);
+
                 godot::UtilityFunctions::print("Main node ready ", gdeng::get()->get_version_info());
 
                 break;
