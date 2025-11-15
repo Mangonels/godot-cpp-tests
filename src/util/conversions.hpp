@@ -23,13 +23,13 @@ namespace ns::inline utils {
         }
 
         explicit operator godot::String()
-            requires std::same_as<std::string>
+            requires std::same_as<TStr, std::string>
         {
             return godot::String(m_str.c_str());
         }
 
         explicit operator godot::String()
-            requires std::same_as<std::string_view>
+            requires std::same_as<TStr, std::string_view>
         {
             return godot::String(m_str.data());
         }
