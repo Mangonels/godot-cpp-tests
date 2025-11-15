@@ -12,7 +12,7 @@ namespace godot
     class AudioStreamPlayer3D;
 }
 
-namespace morph::client
+namespace ns::systems
 {
     /** AudioPlayer singleton (meant to be godot autoloaded) */
     class AudioPlayer : public godot::Node

@@ -10,7 +10,7 @@
 #include "util/conversions.hpp"
 #include "util/engine.hpp"
 
-namespace morph::client
+namespace ns::systems
 {
     AudioPlayer::~AudioPlayer()
     {
@@ -89,3 +89,4 @@ namespace morph::client
             m_global_music->set_volume_linear(volume);
         }
     }
+}

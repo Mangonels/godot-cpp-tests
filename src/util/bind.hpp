@@ -13,11 +13,11 @@
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/variant/string_name.hpp>
 
-#include "common/core/assert.hpp"
-#include "common/core/concepts.hpp"
-#include "common/core/function_traits.hpp"
-#include "common/util/conversions.hpp"
-#include "common/util/variant.hpp"
+#include "core/assert.hpp"
+#include "core/concepts.hpp"
+#include "core/function_traits.hpp"
+#include "util/conversions.hpp"
+#include "util/variant.hpp"
 
 /* Binds a function making it accessible to the engine. */
 #define bind_member_function(class_name, func_name) method<&class_name::func_name>::bind(#func_name)
@@ -28,10 +28,10 @@
 
 /* Binds a property making it visible through the engine inspector. */
 #define bind_property(class_name, prop_name, prop_type)                       \
-    morph::node_property<class_name, prop_type, &class_name::get_##prop_name, \
+    ns::node_property<class_name, prop_type, &class_name::get_##prop_name, \
                          &class_name::set_##prop_name>::add(#prop_name)
 
-namespace morph::inline utils
+namespace ns::inline utils
 {
     /* Used for function binding, checks the amount of arguments the function has, and binds it accordingly.*/
     template <auto Method>
@@ -141,11 +141,11 @@ namespace morph::inline utils
             add()
             {
                 if (class_name.empty())
-                    class_name = morph::to<std::string>(object_t::get_class_static());
+                    class_name = ns::to<std::string>(object_t::get_class_static());
                 else
                 {
                     [[maybe_unused]] std::string temp_name
-                        = morph::to<std::string>(object_t::get_class_static());
+                        = ns::to<std::string>(object_t::get_class_static());
                     runtime_assert(class_name == temp_name);
                 }
 
@@ -196,7 +196,7 @@ namespace morph::inline utils
 
                 m_signal_owner = signal_owner;
                 [[maybe_unused]] const std::string class_name
-                    = morph::to<std::string>(m_signal_owner->get_class());
+                    = ns::to<std::string>(m_signal_owner->get_class());
                 runtime_assert(m_signal_owner->has_signal(signal_name.data()));
             }
 
