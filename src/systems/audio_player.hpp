@@ -12,7 +12,7 @@ namespace godot
     class AudioStreamPlayer3D;
 }
 
-namespace ns::systems
+namespace ns::inline systems
 {
     /** AudioPlayer singleton (meant to be godot autoloaded) */
     class AudioPlayer : public godot::Node

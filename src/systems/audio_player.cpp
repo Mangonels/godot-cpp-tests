@@ -10,7 +10,7 @@
 #include "util/conversions.hpp"
 #include "util/engine.hpp"
 
-namespace ns::systems
+namespace ns::inline systems
 {
     AudioPlayer::~AudioPlayer()
     {
