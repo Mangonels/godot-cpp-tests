@@ -4,7 +4,6 @@
 
 #include "extension_interface.hpp"
 #include "main.hpp"
-#include "systems/audio_player.hpp"
 
 namespace ns {
     void initialize_extension_module(godot::ModuleInitializationLevel init_level)
@@ -13,7 +12,6 @@ namespace ns {
             return;
 
         godot::ClassDB::register_runtime_class<Main>();
-        godot::ClassDB::register_runtime_class<AudioPlayer>();
     }
 
     void uninitialize_extension_module(godot::ModuleInitializationLevel init_level)
