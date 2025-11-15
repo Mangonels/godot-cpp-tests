@@ -13,7 +13,7 @@ namespace ns {
         {
             case NOTIFICATION_READY:
             {
-                set_process_input(true);
+                set_process(true);
 
                 godot::UtilityFunctions::print("Main node ready ", gdeng::get()->get_version_info());
 
