@@ -17,4 +17,4 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AudioPlayerAutoload="*res://Scene.tscn"
+GlobalAudioPlayer="*res://AudioPlayer.tscn"

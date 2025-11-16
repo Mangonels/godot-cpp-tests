@@ -59,16 +59,23 @@ namespace ns {
             }
 
             // Toggle between play and stop using AudioPlayer autoload
+            AudioPlayer* audio_player = AudioPlayer::get();
+            if (audio_player == nullptr)
+            {
+                godot::UtilityFunctions::printerr("AudioPlayer autoload not initialized! Make sure GlobalAudioPlayer is set up in project settings.");
+                return;
+            }
+
             if (!m_is_playing)
             {
                 godot::UtilityFunctions::print("Playing music...");
-                AudioPlayer::get()->play_music(m_test_music, 1.0f, 1.0f, true, 0.0f, 0.5f);
+                audio_player->play_music(m_test_music, 1.0f, 1.0f, true, 0.0f, 0.0f);
                 m_is_playing = true;
             }
             else
             {
                 godot::UtilityFunctions::print("Stopping music...");
-                AudioPlayer::get()->stop_music();
+                audio_player->stop_music();
                 m_is_playing = false;
             }
         }
