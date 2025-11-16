@@ -3,7 +3,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include "extension_interface.hpp"
-#include "main.hpp"
+#include "Main.hpp"
 #include "systems/audio_player.hpp"
 
 namespace ns {
