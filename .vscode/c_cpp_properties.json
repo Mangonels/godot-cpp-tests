@@ -2,24 +2,22 @@
     "version": 4,
     "configurations": [
         {
-            "name": "GDNative C++ (GCC)",
-            "configurationProvider": "ms-vscode.cmake-tools",
-            "intelliSenseMode": "linux-gcc-x64"
+            "name": "Linux",
+            "compileCommands": "${workspaceFolder}/.out/build/gcc-debug/compile_commands.json",
+            "intelliSenseMode": "linux-gcc-x64",
+            "cppStandard": "c++23"
         },
         {
-            "name": "GDNative C++ (Clang)",
+            "name": "Windows",
             "configurationProvider": "ms-vscode.cmake-tools",
-            "intelliSenseMode": "linux-clang-x64"
+            "intelliSenseMode": "windows-msvc-x64",
+            "cppStandard": "c++23"
         },
         {
-            "name": "Mac GDNative C++ (Clang)",
+            "name": "macOS",
             "configurationProvider": "ms-vscode.cmake-tools",
-            "intelliSenseMode": "macos-clang-x64"
-        },
-        {
-            "name": "GDNative C++ (MSVC)",
-            "configurationProvider": "ms-vscode.cmake-tools",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "macos-clang-x64",
+            "cppStandard": "c++23"
         }
     ]
 }

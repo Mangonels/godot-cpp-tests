@@ -32,6 +32,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_COLOR_DIAGNOSTICS ON)
 set(CMAKE_MESSAGE_LOG_LEVEL STATUS)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Assign CMAKE_MODULE_PATH which will indicate future include statements where the .cmake files to be included may be located
 list(APPEND CMAKE_MODULE_PATH
@@ -227,12 +228,9 @@ string(TOLOWER
 
 set_target_properties(${PROJECT_NAME}
 	PROPERTIES
-		# This option tells CMake to generate position-independent code (PIC). 
-		# PIC code can be loaded and executed at any address in memory. 
+		# This option tells CMake to generate position-independent code (PIC).
+		# PIC code can be loaded and executed at any address in memory.
 		# This is necessary for libraries that will be shared between multiple processes.
-        CMAKE_EXPORT_COMPILE_COMMANDS ON
-		# This option tells CMake to export the compile commands for the target. 
-		# This can be useful for debugging and profiling purposes.
         CMAKE_INTERPROCEDURAL_OPTIMIZATION_RELEASE ON
 		# This option tells CMake to enable interprocedural optimization for the target. 
 		# This can improve the performance of the target by optimizing code across multiple functions.

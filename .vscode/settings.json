@@ -4,12 +4,15 @@
     "C_Cpp.clang_format_fallbackStyle": "none",
     "C_Cpp.clang_format_style": "file",
     "C_Cpp.codeAnalysis.runAutomatically": true,
+    "C_Cpp.intelliSenseEngine": "default",
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.loggingLevel": "Debug",
     "C_Cpp.commentContinuationPatterns": [
         "/**",
         "///"
     ],
-    "C_Cpp.default.compilerPath": "",
-    "C_Cpp.default.cppStandard": "c++20",
+    "C_Cpp.default.cppStandard": "c++23",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/.out/build/${command:cmake.activeBuildPresetName}/compile_commands.json",
     "C_Cpp.default.enableConfigurationSquiggles": true,
     "C_Cpp.enhancedColorization": "enabled",
     "C_Cpp.formatting": "clangFormat",
