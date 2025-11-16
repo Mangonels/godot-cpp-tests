@@ -3,7 +3,7 @@
 #include <godot_cpp/godot.hpp>
 
 #include "extension_interface.hpp"
-#include "main.hpp"
+#include "Main.hpp"
 
 namespace ns {
     void initialize_extension_module(godot::ModuleInitializationLevel init_level)

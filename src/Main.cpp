@@ -2,7 +2,7 @@
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "main.hpp"
+#include "Main.hpp"
 #include "util/engine.hpp"
 
 namespace ns {
