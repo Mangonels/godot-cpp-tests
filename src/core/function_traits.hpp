@@ -18,10 +18,8 @@
   #define stdcall __cdecl
 #endif
 
-namespace ns::inline utils
-{
-    namespace detail
-    {
+namespace ns::inline utils {
+    namespace detail {
         template <typename H>
         void to_arg_vec_impl(std::vector<godot::String>& s, H&& h)
         {
@@ -47,7 +45,7 @@ namespace ns::inline utils
         template <typename... TupleTypes>
         std::vector<godot::String> to_arg_vec(const std::tuple<TupleTypes...>& tup)
         {
-            static constexpr size_t arg_count = sizeof...(TupleTypes);
+            constexpr static size_t arg_count = sizeof...(TupleTypes);
             return to_arg_vec(tup, std::make_index_sequence<arg_count>());
         }
 
@@ -75,8 +73,8 @@ namespace ns::inline utils
         using class_type = TClass;
         using arg_types = std::tuple<TArgs...>;
         using arg_types_nocvref = std::tuple<std::remove_cvref_t<TArgs>...>;
-        inline static const std::string_view class_name{ typeid(class_type).name() };
-        static constexpr size_t arg_count = sizeof...(TArgs);
+        const static inline std::string_view class_name{ typeid(class_type).name() };
+        constexpr static size_t arg_count = sizeof...(TArgs);
     };
 
     // const member function
@@ -92,7 +90,7 @@ namespace ns::inline utils
     struct function_traits
         : public function_traits<decltype(&std::remove_reference_t<TCallable>::operator())>
     {
-        inline static const std::string_view class_name{};
+        const static inline std::string_view class_name{};
     };
 
     // leaves function signature untouched if

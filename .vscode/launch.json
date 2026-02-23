@@ -389,6 +389,33 @@
           "ignoreFailures": true
         }
       ]
+    },
+    {
+      "name": "project (CodeLLDB)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/extern/godot-engine/bin/godot.linuxbsd.editor.dev.x86_64",
+      "args": [
+        "--debug",
+        "--verbose",
+        "--path",
+        "${workspaceFolder}/project"
+      ],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "editor (CodeLLDB)",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${workspaceFolder}/extern/godot-engine/bin/godot.linuxbsd.editor.dev.x86_64",
+      "args": [
+        "--editor",
+        "--debug",
+        "--verbose",
+        "--path",
+        "${workspaceFolder}/project"
+      ],
+      "cwd": "${workspaceFolder}"
     }
   ]
 }

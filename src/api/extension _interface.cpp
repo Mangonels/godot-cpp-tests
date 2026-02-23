@@ -2,8 +2,8 @@
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
 
-#include "extension_interface.hpp"
 #include "Main.hpp"
+#include "extension_interface.hpp"
 
 namespace ns {
     void initialize_extension_module(godot::ModuleInitializationLevel init_level)

@@ -2,8 +2,7 @@
 
 #include <godot_cpp/classes/node.hpp>
 
-namespace ns::inline systems
-{
+namespace ns::inline systems {
     class AudioPlayer;
 }
 

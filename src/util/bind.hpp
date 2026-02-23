@@ -27,20 +27,20 @@
     std::forward_as_tuple(godot::Callable(slot_owner, #slot_callback), slot_owner)
 
 /* Binds a property making it visible through the engine inspector. */
-#define bind_property(class_name, prop_name, prop_type)                       \
+#define bind_property(class_name, prop_name, prop_type)                    \
     ns::node_property<class_name, prop_type, &class_name::get_##prop_name, \
-                         &class_name::set_##prop_name>::add(#prop_name)
+                      &class_name::set_##prop_name>::add(#prop_name)
 
-namespace ns::inline utils
-{
-    /* Used for function binding, checks the amount of arguments the function has, and binds it accordingly.*/
+namespace ns::inline utils {
+    /* Used for function binding, checks the amount of arguments the function has, and binds it
+     * accordingly.*/
     template <auto Method>
         requires std::is_member_function_pointer_v<decltype(Method)>
     struct method : function_traits<decltype(Method)>
     {
         using traits_t = function_traits<decltype(Method)>;
 
-        static constexpr void bind(std::string_view&& func_name)
+        constexpr static void bind(std::string_view&& func_name)
         {
             constexpr std::size_t tup_size = std::tuple_size_v<typename traits_t::arg_types>;
             if constexpr (tup_size == 0)
@@ -65,7 +65,7 @@ namespace ns::inline utils
         using getter_traits = function_traits<decltype(GetterMethod)>;
         using setter_traits = function_traits<decltype(SetterMethod)>;
 
-        static constexpr void add(std::string&& prop_name)
+        constexpr static void add(std::string&& prop_name)
         {
             const std::string getter_name{ "get_" + prop_name };
             const std::string setter_name{ "set_" + prop_name };
@@ -93,7 +93,7 @@ namespace ns::inline utils
         static void bind(std::string_view&& func_name)
         {
             auto class_name = godot::StringName("Main");
-            static constexpr std::size_t tup_size = std::tuple_size_v<typename traits_t::arg_types>;
+            constexpr static std::size_t tup_size = std::tuple_size_v<typename traits_t::arg_types>;
             if constexpr (tup_size == 0)
                 godot::ClassDB::bind_static_method(class_name, godot::D_METHOD(func_name.data()),
                                                    Function);
@@ -120,7 +120,7 @@ namespace ns::inline utils
     public:
         using object_t = std::type_identity_t<TObject>;
         using signal_t = std::type_identity_t<signal_binding<object_t, SignalName>>;
-        static constexpr std::string_view signal_name{ SignalName };
+        constexpr static std::string_view signal_name{ SignalName };
         static inline std::vector<godot::PropertyInfo> signal_params{};
 
         // even though we know what TObject is here (the class type adding the signal binding)
@@ -136,7 +136,7 @@ namespace ns::inline utils
         struct add
         {
             using arg_types = std::tuple<std::type_identity_t<TArgs>...>;
-            static constexpr size_t arg_count{ std::tuple_size_v<arg_types> };
+            constexpr static size_t arg_count{ std::tuple_size_v<arg_types> };
 
             add()
             {
@@ -144,8 +144,8 @@ namespace ns::inline utils
                     class_name = ns::to<std::string>(object_t::get_class_static());
                 else
                 {
-                    [[maybe_unused]] std::string temp_name
-                        = ns::to<std::string>(object_t::get_class_static());
+                    [[maybe_unused]] std::string temp_name = ns::to<std::string>(
+                        object_t::get_class_static());
                     runtime_assert(class_name == temp_name);
                 }
 
@@ -164,9 +164,8 @@ namespace ns::inline utils
 
                     godot::ClassDB::add_signal(
                         class_name.data(),
-                        godot::MethodInfo(
-                            signal_name.data(),
-                            std::forward<decltype(signal_params)>(signal_params)));
+                        godot::MethodInfo(signal_name.data(),
+                                          std::forward<decltype(signal_params)>(signal_params)));
                 }
 
                 runtime_assert(signal_params.size() == arg_count);
@@ -179,7 +178,7 @@ namespace ns::inline utils
     struct signal
     {
     public:
-        static constexpr std::string_view signal_name{ SignalName };
+        constexpr static std::string_view signal_name{ SignalName };
 
     public:
         template <GDObjectDerived TOwnerObj>
@@ -195,8 +194,8 @@ namespace ns::inline utils
                 static_assert(std::is_same_v<decltype(signal_owner), decltype(m_signal_owner)>);
 
                 m_signal_owner = signal_owner;
-                [[maybe_unused]] const std::string class_name
-                    = ns::to<std::string>(m_signal_owner->get_class());
+                [[maybe_unused]] const std::string class_name = ns::to<std::string>(
+                    m_signal_owner->get_class());
                 runtime_assert(m_signal_owner->has_signal(signal_name.data()));
             }
 
@@ -219,7 +218,8 @@ namespace ns::inline utils
                 }
 
                 // TODO: compare and validate the arg count, raw types, and variant conversions
-                //       between the matching signal binding record and the callback being connected.
+                //       between the matching signal binding record and the callback being
+                //       connected.
                 return m_signal_owner->connect(signal_name.data(), cb);
             }
         };
