@@ -1,3 +1,9 @@
-Tested working on Linux (Selecting GCC compiler) and Windows (Selecting MSVC compiler), but should also work on MacOS (Clang compiler suggested).
+# godot-cpp-tests
 
-For a complete comprehensive usage guide refer to the [godot-roguelite wiki](https://github.com/vorlac/godot-roguelite/wiki), this is basically the same setup, without the game, and potentially further kept up to date.
+A C++ GDExtension project for Godot Engine, using CMake as the build system with vcpkg for dependency management.
+
+Tested on Linux (GCC) and Windows (MSVC), should also work on macOS (Clang).
+
+Based on [godot-roguelite](https://github.com/vorlac/godot-roguelite) by [vorlac](https://github.com/vorlac).
+
+For setup guides and documentation, see the [Wiki](https://github.com/Mangonels/godot-cpp-tests/wiki).
